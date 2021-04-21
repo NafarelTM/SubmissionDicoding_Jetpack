@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Duta Movie</string>
+    <string name="app_name">DutaMovie</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="date_example">Apr 16, 2021</string>
     <string name="title_example">Movie/Tv Show Title</string>

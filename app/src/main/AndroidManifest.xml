@@ -9,15 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SubmissionJetpack">
-        <activity android:name="com.example.submissionjetpack.ui.main.MainActivity">
+        <activity android:name=".ui.splashscreen.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.submissionjetpack.ui.tvshow.TvShowDetailActivity"/>
-        <activity android:name="com.example.submissionjetpack.ui.movie.MovieDetailActivity" />
+        <activity android:name=".ui.main.MainActivity"/>
+        <activity android:name=".ui.tvshow.TvShowDetailActivity" />
+        <activity android:name=".ui.movie.MovieDetailActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
