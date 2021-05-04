@@ -24,7 +24,7 @@ class TvShowDetailActivity : AppCompatActivity() {
             TvShowViewModel::class.java)
 
         val dataTvShow = intent.getParcelableExtra<DataEntity>(EXTRA_TVSHOW)
-        if (dataTvShow != null){
+        dataTvShow?.let{
             binding.toolbarTitle.text = dataTvShow.title
 
             viewModel.setTvShowDetail(dataTvShow)
@@ -49,7 +49,7 @@ class TvShowDetailActivity : AppCompatActivity() {
 
             val palette: Palette = Palette.from(BitmapFactory.decodeResource(resources, tvShowEntity.image)).generate()
             val color: Palette.Swatch? = palette.vibrantSwatch
-            if(color != null){
+            color?.let{
                 window.statusBarColor = color.rgb
                 toolbar.setBackgroundColor(color.rgb)
 

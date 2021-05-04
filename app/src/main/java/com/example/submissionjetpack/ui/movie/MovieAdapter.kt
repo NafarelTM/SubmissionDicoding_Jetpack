@@ -35,7 +35,7 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
                 val palette: Palette = Palette.from(BitmapFactory.decodeResource(itemView.context.resources, movie.image)).generate()
                 val color: Palette.Swatch? = palette.vibrantSwatch
-                if (color != null) {
+                color?.let{
                     layoutMovie.setBackgroundColor(color.rgb)
                     tvTitle.setTextColor(color.titleTextColor)
                     tvDate.setTextColor(color.titleTextColor)

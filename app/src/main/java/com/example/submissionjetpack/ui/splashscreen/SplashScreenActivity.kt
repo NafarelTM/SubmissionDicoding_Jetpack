@@ -9,6 +9,7 @@ import com.example.submissionjetpack.R
 import com.example.submissionjetpack.ui.main.MainActivity
 
 class SplashScreenActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
@@ -17,6 +18,10 @@ class SplashScreenActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
-        }, 1500)
+        }, delayTime)
+    }
+
+    companion object {
+        private const val delayTime = 1500L
     }
 }

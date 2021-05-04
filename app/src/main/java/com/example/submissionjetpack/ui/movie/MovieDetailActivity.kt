@@ -23,7 +23,7 @@ class MovieDetailActivity : AppCompatActivity() {
         val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MovieViewModel::class.java)
 
         val dataMovie = intent.getParcelableExtra<DataEntity>(EXTRA_MOVIE)
-        if (dataMovie != null){
+        dataMovie?.let{
             binding.toolbarTitle.text = dataMovie.title
 
             viewModel.setMovieDetail(dataMovie)
@@ -48,7 +48,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
             val palette: Palette = Palette.from(BitmapFactory.decodeResource(resources, movieEntity.image)).generate()
             val color: Palette.Swatch? = palette.vibrantSwatch
-            if(color != null){
+            color?.let{
                 window.statusBarColor = color.rgb
                 toolbar.setBackgroundColor(color.rgb)
 
