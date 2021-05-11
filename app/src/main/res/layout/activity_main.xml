@@ -8,6 +8,7 @@
     tools:context=".ui.main.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -18,8 +19,8 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_round_local_movies_24"
-                android:contentDescription="@string/logo_application"/>
+                android:contentDescription="@string/logo_application"
+                android:src="@drawable/ic_round_local_movies_24" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -27,9 +28,9 @@
                 android:layout_marginStart="24dp"
                 android:fontFamily="@font/mclaren"
                 android:text="@string/app_name"
-                android:textStyle="bold"
                 android:textColor="@color/colorOnPrimary"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -40,9 +41,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorSecondary"
-        app:tabTextColor="@color/grey"
         app:tabIndicatorColor="@color/colorOnPrimary"
-        app:tabSelectedTextColor="@color/colorOnPrimary"/>
+        app:tabSelectedTextColor="@color/colorOnPrimary"
+        app:tabTextColor="@color/grey" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"

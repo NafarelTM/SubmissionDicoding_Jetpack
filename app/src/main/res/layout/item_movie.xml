@@ -16,7 +16,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_launcher_foreground"
+        tools:src="@drawable/ic_launcher_foreground"
         android:contentDescription="@string/poster_description" />
 
     <TextView
@@ -44,5 +44,15 @@
         app:layout_constraintStart_toEndOf="@+id/img_poster"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
         tools:text="@string/date_example" />
+
+    <RatingBar
+        android:id="@+id/rating_bar"
+        style="@android:style/Widget.Material.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:progressTint="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/tv_date"
+        app:layout_constraintTop_toBottomOf="@+id/tv_date" />
     
 </androidx.constraintlayout.widget.ConstraintLayout>

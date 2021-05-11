@@ -9,7 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
@@ -51,7 +52,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/app_bar"
-            tools:src="@drawable/cover_alita" />
+            tools:src="@drawable/ic_launcher_foreground" />
 
         <ImageView
             android:id="@+id/img_poster"
@@ -61,7 +62,8 @@
             android:contentDescription="@string/desc_poster"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/poster_alita" />
+            tools:src="@drawable/ic_round_local_movies_24"
+            tools:background="@color/colorPrimary"/>
 
         <TextView
             android:id="@+id/tv_title"
@@ -95,11 +97,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:text="@string/release_date"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:text="@string/release_date"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_poster" />
+            app:layout_constraintTop_toBottomOf="@+id/img_poster"
+            android:visibility="gone"
+            tools:visibility="visible"/>
 
         <TextView
             android:id="@+id/tv_date"
@@ -114,11 +118,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@string/description"
             android:textStyle="bold"
             android:textSize="18sp"
+            android:text="@string/description"
             app:layout_constraintStart_toStartOf="@+id/tv_date"
-            app:layout_constraintTop_toBottomOf="@id/tv_date" />
+            app:layout_constraintTop_toBottomOf="@id/tv_date"
+            android:visibility="gone"
+            tools:visibility="visible"/>
 
         <TextView
             android:id="@+id/tv_desc"
@@ -136,11 +142,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@string/genre"
             android:textStyle="bold"
             android:textSize="18sp"
+            android:text="@string/genre"
             app:layout_constraintStart_toStartOf="@+id/tv_desc"
-            app:layout_constraintTop_toBottomOf="@id/tv_desc" />
+            app:layout_constraintTop_toBottomOf="@id/tv_desc"
+            android:visibility="gone"
+            tools:visibility="visible"/>
 
         <TextView
             android:id="@+id/tv_genre"
@@ -151,6 +159,18 @@
             app:layout_constraintStart_toStartOf="@+id/tv_genre_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_genre_title"
             tools:text="@string/genre_example"/>
+
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:indeterminate="true"
+            app:mpb_progressStyle="horizontal"
+            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/app_bar"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

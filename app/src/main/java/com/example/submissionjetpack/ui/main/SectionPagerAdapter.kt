@@ -3,7 +3,6 @@ package com.example.submissionjetpack.ui.main
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.submissionjetpack.databinding.ActivityMainBinding
 import com.example.submissionjetpack.ui.movie.MovieFragment
 import com.example.submissionjetpack.ui.tvshow.TvShowFragment
 

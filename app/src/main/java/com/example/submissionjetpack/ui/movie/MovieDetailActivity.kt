@@ -1,13 +1,21 @@
 package com.example.submissionjetpack.ui.movie
 
-import android.graphics.BitmapFactory
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
+import com.example.submissionjetpack.R
 import com.example.submissionjetpack.databinding.ActivityMovieDetailBinding
-import com.example.submissionjetpack.model.DataEntity
+import com.example.submissionjetpack.model.entity.MovieEntity
+import com.example.submissionjetpack.viewmodel.MovieViewModel
+import com.example.submissionjetpack.viewmodel.ViewModelFactory
 
 class MovieDetailActivity : AppCompatActivity() {
 
@@ -20,52 +28,74 @@ class MovieDetailActivity : AppCompatActivity() {
 
         binding.toolbar.setNavigationOnClickListener { finish() }
 
-        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MovieViewModel::class.java)
+        val vmFactory = ViewModelFactory.getInstance(this)
+        val viewModel = ViewModelProvider(this, vmFactory).get(MovieViewModel::class.java)
 
-        val dataMovie = intent.getParcelableExtra<DataEntity>(EXTRA_MOVIE)
-        dataMovie?.let{
-            binding.toolbarTitle.text = dataMovie.title
+        val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, -1)
+        val movieTitle = intent.getStringExtra(EXTRA_MOVIE_TITLE)
 
-            viewModel.setMovieDetail(dataMovie)
-            val movies = viewModel.getMovieDetail()
-            populateMovie(movies)
-        }
+        binding.toolbarTitle.text = movieTitle
+        viewModel.getMovies().observe(this, {
+            populateMovie(it[movieId])
+            binding.apply {
+                tvDateTitle.visibility = View.VISIBLE
+                tvDescTitle.visibility = View.VISIBLE
+                tvGenreTitle.visibility = View.VISIBLE
+                progressBar.visibility = View.GONE
+            }
+        })
     }
 
-    private fun populateMovie(movieEntity: DataEntity) {
+    private fun populateMovie(movieEntity: MovieEntity) {
         binding.apply {
             tvTitle.text = movieEntity.title
             tvDuration.text = movieEntity.duration
-            tvDate.text = movieEntity.date
+            tvDate.text = StringBuilder("${movieEntity.date}, ${movieEntity.year}")
             tvDesc.text = movieEntity.description
             tvGenre.text = movieEntity.genre
+
             Glide.with(this@MovieDetailActivity)
-                .load(movieEntity.cover)
+                .asBitmap()
+                .load(movieEntity.posterImg)
+                .into(object: CustomTarget<Bitmap>(){
+                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                        imgPoster.setImageBitmap(resource)
+                        setColor(resource)
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {
+
+                    }
+                })
+
+            Glide.with(this@MovieDetailActivity)
+                .load(movieEntity.backdropImg)
                 .into(imgCover)
-            Glide.with(this@MovieDetailActivity)
-                .load(movieEntity.image)
-                .into(imgPoster)
+        }
+    }
 
-            val palette: Palette = Palette.from(BitmapFactory.decodeResource(resources, movieEntity.image)).generate()
-            val color: Palette.Swatch? = palette.vibrantSwatch
-            color?.let{
-                window.statusBarColor = color.rgb
-                toolbar.setBackgroundColor(color.rgb)
-
-                detailMovie.setBackgroundColor(color.rgb)
-                tvTitle.setTextColor(color.titleTextColor)
-                tvDuration.setTextColor(color.titleTextColor)
-                tvDateTitle.setTextColor(color.titleTextColor)
-                tvDate.setTextColor(color.titleTextColor)
-                tvDescTitle.setTextColor(color.titleTextColor)
-                tvDesc.setTextColor(color.titleTextColor)
-                tvGenreTitle.setTextColor(color.titleTextColor)
-                tvGenre.setTextColor(color.titleTextColor)
+    private fun setColor(image: Bitmap){
+        Palette.from(image).generate {
+            binding.apply {
+                window.statusBarColor = it?.vibrantSwatch?.rgb ?: R.color.grey
+                toolbar.setBackgroundColor(it?.vibrantSwatch?.rgb ?: R.color.grey)
+                detailMovie.setBackgroundColor(it?.vibrantSwatch?.rgb ?: R.color.grey)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    tvTitle.setTextColor(resources.getColor(R.color.white, theme))
+                    tvDuration.setTextColor(resources.getColor(R.color.white, theme))
+                    tvDateTitle.setTextColor(resources.getColor(R.color.white, theme))
+                    tvDate.setTextColor(resources.getColor(R.color.white, theme))
+                    tvDescTitle.setTextColor(resources.getColor(R.color.white, theme))
+                    tvDesc.setTextColor(resources.getColor(R.color.white, theme))
+                    tvGenreTitle.setTextColor(resources.getColor(R.color.white, theme))
+                    tvGenre.setTextColor(resources.getColor(R.color.white, theme))
+                }
             }
         }
     }
 
     companion object{
-        const val EXTRA_MOVIE = "extra_movie"
+        const val EXTRA_MOVIE_ID = "extra_movie_id"
+        const val EXTRA_MOVIE_TITLE = "extra_movie_title"
     }
 }
