@@ -1,7 +1,7 @@
 package com.example.submissionjetpack.utils
 
-import com.example.submissionjetpack.model.entity.MovieEntity
-import com.example.submissionjetpack.model.entity.TvShowEntity
+import com.example.submissionjetpack.data.local.MovieEntity
+import com.example.submissionjetpack.data.local.TvShowEntity
 
 object DataDummy {
     fun dataMovies(): List<MovieEntity> {

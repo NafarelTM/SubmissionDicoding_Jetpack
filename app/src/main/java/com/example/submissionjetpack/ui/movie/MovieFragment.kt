@@ -5,11 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.submissionjetpack.databinding.FragmentMovieBinding
 import com.example.submissionjetpack.viewmodel.MovieViewModel
 import com.example.submissionjetpack.viewmodel.ViewModelFactory
+import com.example.submissionjetpack.vo.Status
 
 class MovieFragment : Fragment() {
 
@@ -29,9 +31,19 @@ class MovieFragment : Fragment() {
 
             adapter = MovieAdapter()
             viewModel.getMovies().observe(viewLifecycleOwner, {
-                binding.aviIndicator.visibility = View.GONE
-                adapter.setMovies(it)
-                adapter.notifyDataSetChanged()
+                when(it.status){
+                    Status.LOADING -> binding.aviIndicator.visibility = View.VISIBLE
+
+                    Status.SUCCESS -> {
+                        binding.aviIndicator.visibility = View.GONE
+                        adapter.submitList(it.data)
+                    }
+
+                    Status.ERROR -> {
+                        binding.aviIndicator.visibility = View.GONE
+                        Toast.makeText(context, "Data tidak dapat dimuat", Toast.LENGTH_SHORT).show()
+                    }
+                }
             })
 
             binding.rvMovie.apply {

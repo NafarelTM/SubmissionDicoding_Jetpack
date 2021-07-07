@@ -6,7 +6,10 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.graphics.drawable.toBitmap
+import androidx.paging.PagedListAdapter
 import androidx.palette.graphics.Palette
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -15,17 +18,9 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.submissionjetpack.R
 import com.example.submissionjetpack.databinding.ItemMovieBinding
-import com.example.submissionjetpack.model.entity.TvShowEntity
+import com.example.submissionjetpack.data.local.TvShowEntity
 
-class TvShowAdapter: RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
-
-    private val listTvShow = ArrayList<TvShowEntity>()
-
-    fun setTvShow(tvShows: List<TvShowEntity>){
-        if(tvShows.isEmpty()) return
-        listTvShow.clear()
-        listTvShow.addAll(tvShows)
-    }
+class TvShowAdapter: PagedListAdapter<TvShowEntity, TvShowAdapter.TvShowViewHolder>(DIFF_CALLBACK) {
 
     class TvShowViewHolder(private val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(tvShow: TvShowEntity){
@@ -46,7 +41,7 @@ class TvShowAdapter: RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
                         }
 
                         override fun onLoadCleared(placeholder: Drawable?) {
-
+                            placeholder?.toBitmap()?.let { setColor(it) }
                         }
                     })
 
@@ -78,9 +73,23 @@ class TvShowAdapter: RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: TvShowViewHolder, position: Int) {
-        val tvShow = listTvShow[position]
-        holder.bind(tvShow)
+        val tvShow = getItem(position)
+        tvShow?.let {
+            holder.bind(it)
+        }
     }
 
-    override fun getItemCount(): Int = listTvShow.size
+    fun getSwiped(position: Int): TvShowEntity? = getItem(position)
+
+    companion object{
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TvShowEntity>() {
+            override fun areItemsTheSame(oldItem: TvShowEntity, newItem: TvShowEntity): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: TvShowEntity, newItem: TvShowEntity): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
 }

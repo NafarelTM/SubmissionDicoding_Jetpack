@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.submissionjetpack.di.Injection
-import com.example.submissionjetpack.repository.DataRepository
+import com.example.submissionjetpack.data.repository.DataRepository
 
 class ViewModelFactory private constructor(private val dataRepo: DataRepository): ViewModelProvider.NewInstanceFactory(){
 
@@ -16,6 +16,9 @@ class ViewModelFactory private constructor(private val dataRepo: DataRepository)
             }
             modelClass.isAssignableFrom(TvShowViewModel::class.java) -> {
                 TvShowViewModel(dataRepo) as T
+            }
+            modelClass.isAssignableFrom(FavoriteViewModel::class.java) -> {
+                FavoriteViewModel(dataRepo) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

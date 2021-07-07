@@ -14,8 +14,12 @@
     <string name="genre">Genre</string>
     <string name="genre_example">Action, Drama, Comedy, Sci_Fi, Romance</string>
     <string name="logo_application">Logo Application</string>
-    <string name="title_activity_main2">MainActivity</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="fav_movie_deleted">Movie favorite deleted</string>
+    <string name="fav_tvshow_deleted">Tv Show favorite deleted</string>
+    <string name="undo_deleted">UNDO</string>
+    <string name="empty_fav_movie">No Favorite Movie</string>
+    <string name="empty_fav_tvshow">No Favorite Tv Show</string>
+    <string name="favorite_button">Button Favorite</string>
 </resources>

@@ -1,12 +1,12 @@
-package com.example.submissionjetpack.ui.main
+package com.example.submissionjetpack.ui.main.home
 
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.submissionjetpack.ui.movie.MovieFragment
 import com.example.submissionjetpack.ui.tvshow.TvShowFragment
 
-class SectionPagerAdapter(activity: AppCompatActivity): FragmentStateAdapter(activity) {
+class HomePagerAdapter(activity: FragmentActivity): FragmentStateAdapter(activity) {
     override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment {
